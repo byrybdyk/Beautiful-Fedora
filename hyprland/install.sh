@@ -1,29 +1,23 @@
 #!/bin/bash
 
-echo "FireStreaker2's dotfiles"
-
-ISYAY=/sbin/yay
-if [ -f "$ISYAY" ]; then
-  echo -e "yay was located, moving on.\n"
-  yay
-else
-  echo -e "yay was not located, please install yay. Exiting.\n"
-  exit
-fi
+echo "byrybdyk's dotfiles"
 
 read -n1 -rep "Would you like to install required packages? (y,n)" INST
 if [[ $INST == "Y" || $INST == "y" ]]; then
-  yay -S --noconfirm hyprland kitty waybar \
-    wofi cava fish hypridle hyprlock wlogout thunar \
-    ttf-jetbrains-mono-nerd noto-fonts-emoji \
+  dnf -y corp enable solopasha/hyprland \
+  dnf -y copr enable maveonair/jetbrains-mono-nerd-font \
+  dnf -y copr enable erikreider/SwayNotificationCenter \
+
+  dnf -y install hyprland kitty waybar \
+    wofi cava hypridle hyprlock wlogout Thunar \
+    jetbrains-mono-nerd-fonts google-noto-color-emoji-fonts \
     polkit-gnome python-requests starship \
     swappy grim slurp pamixer brightnessctl gvfs \
-    bluez bluez-utils neofetch nvim swaync \
+    bluez bluez-tools neofetch neovim SwayNotificationCenter \
     xdg-desktop-portal-hyprland sddm blueman \
     nm-connection-editor wl-clipboard swaybg \
-    swayosd-git
 
-  yay -R --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk xdg-desktop-portal-kde
+  dnf clean all
 
   echo "Packages have been installed!"
 fi
@@ -31,7 +25,6 @@ fi
 read -n1 -rep "Would you like to copy config files? (y,n)" CFG
 if [[ $CFG == "Y" || $CFG == "y" ]]; then
   cp -R cava ~/.config/
-  cp -R fish ~/.config/
   cp -R hypr ~/.config/
   cp -R kitty ~/.config/
   cp -R neofetch ~/.config/
@@ -49,11 +42,6 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
   chmod +x ~/.config/waybar/mediaplayer.py
 fi
 
-read -n1 -rep "Would you like to change your default shell to fish? (y,n)" SHL
-if [[ $SHL == "Y" || $SHL == "y" ]]; then
-  chsh --shell=/usr/bin/fish $USER
-  echo -e "Succesfully changed shell! Note that you may have to reboot in order for changes to apply.\n"
-fi
 
 echo -e "Installation has succesfully finished.\n"
 read -n1 -rep "Would you like to start Hyprland now? (y,n)" HYP
