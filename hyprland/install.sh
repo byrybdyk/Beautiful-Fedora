@@ -4,9 +4,9 @@ echo "byrybdyk's dotfiles"
 
 read -n1 -rep "Would you like to install required packages? (y,n)" INST
 if [[ $INST == "Y" || $INST == "y" ]]; then
-  dnf -y corp enable solopasha/hyprland \
-  dnf -y copr enable maveonair/jetbrains-mono-nerd-font \
-  dnf -y copr enable erikreider/SwayNotificationCenter \
+  dnf corp enable solopasha/hyprland
+  dnf copr enable maveonair/jetbrains-mono-nerd-font
+  dnf copr enable erikreider/SwayNotificationCenter
 
   dnf -y install hyprland kitty waybar \
     wofi cava hypridle hyprlock wlogout Thunar \
@@ -15,7 +15,7 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
     swappy grim slurp pamixer brightnessctl gvfs \
     bluez bluez-tools neofetch neovim SwayNotificationCenter \
     xdg-desktop-portal-hyprland sddm blueman \
-    nm-connection-editor wl-clipboard swaybg \
+    nm-connection-editor wl-clipboard swaybg
 
   dnf clean all
 
